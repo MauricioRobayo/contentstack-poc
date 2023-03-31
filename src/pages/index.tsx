@@ -1,3 +1,5 @@
-export default function Home() {
-  return <h1 className="text-3xl font-bold">Hello world!</h1>;
-}
+import { contentstackClient } from "@/contentstack/api-client";
+import Page from "./[page]";
+export { getServerSideProps } from "./[page]";
+
+export default Page;
