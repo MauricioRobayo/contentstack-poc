@@ -1,19 +1,36 @@
-import { contentstackClient } from "@/contentstack/api-client";
-import { pageQuery } from "@/contentstack/queries";
+import { getPageBlocks } from "@/contentstack/api-client";
 import { GetServerSideProps } from "next";
 
-export default function Page({ page }: any) {
-  return <pre>page {JSON.stringify(page, null, 2)}</pre>;
+function Hero(props: any) {
+  return <pre>{JSON.stringify(props, null, 2)}</pre>;
+}
+
+const mainContentComponents = {
+  // PageMainContentRichText: richText,
+  // PageMainContentBuckets: buckets,
+  PageMainContentHeroSection: Hero,
+  // PageMainContentActions: actions,
+  // PageMainContentSpotlight: spotlight,
+};
+
+export default function Page({ blocks }: any) {
+  return <pre>{JSON.stringify(blocks, null, 2)}</pre>;
+  return blocks.map((block: any) => {
+    const Component = mainContentComponents[block.__typename as string];
+    if (Component) {
+      return <Component key={block._typename} {...block.hero_section} />;
+    }
+
+    return null;
+  });
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const page = await contentstackClient(pageQuery, {
-    url: `/${context.query.page ?? ""}`,
-  });
+  const blocks = await getPageBlocks(`/${context.query.page ?? ""}`);
 
   return {
     props: {
-      page,
+      blocks,
     },
   };
 };

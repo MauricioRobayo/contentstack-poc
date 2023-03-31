@@ -1,3 +1,5 @@
+import { PageQueryResult, pageQuery } from "./queries";
+
 const config = {
   apiBaseUrl: process.env.CONTENTSTACK_API_BASE_URL ?? "",
   accessToken: process.env.CONTENTSTACK_ACCESS_TOKEN ?? "",
@@ -13,7 +15,7 @@ if (missingEnvVars.length > 0) {
   );
 }
 
-export async function contentstackClient(
+async function contentstackClient(
   query: string,
   variables?: Record<string, string | number>
 ) {
@@ -37,4 +39,11 @@ export async function contentstackClient(
   }
 
   return response.json();
+}
+
+export async function getPageBlocks(url: string) {
+  const response: PageQueryResult = await contentstackClient(pageQuery, {
+    url,
+  });
+  return response.data.all_page.items[0].main_content;
 }

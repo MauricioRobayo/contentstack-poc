@@ -1,5 +1,18 @@
 const gql = String.raw;
 
+export type Image = {
+  edges: Array<{
+    node: {
+      url: string;
+      content_type: string;
+      description: string;
+      file_size: number;
+      filename: string;
+      metadata: null;
+      title: string;
+    };
+  }>;
+};
 const image = gql`
   imageConnection {
     edges {
@@ -16,6 +29,10 @@ const image = gql`
   }
 `;
 
+type Link = {
+  href: string;
+  title: string;
+};
 const link = gql`
   link {
     href
@@ -23,6 +40,15 @@ const link = gql`
   }
 `;
 
+type Spotlight = {
+  description: string;
+  title: string;
+  caption: {
+    description: string;
+    title: string;
+    imageConnection: Image;
+  };
+};
 const spotlight = gql`
   spotlight {
     description
@@ -53,6 +79,16 @@ const richText = gql`
   }
 `;
 
+type Buckets = {
+  actions: {
+    description: {
+      iconConnection: Image;
+      link: Link;
+      title: string;
+    };
+    title: string;
+  };
+};
 const buckets = gql`
   buckets {
     actions {
@@ -72,6 +108,16 @@ const buckets = gql`
   }
 `;
 
+type Hero = {
+  background_color: string;
+  description: string;
+  hero_image: {
+    imageConnection: Image;
+    position: "left" | "right";
+  };
+  text_color: string;
+  title: string;
+};
 const hero = gql`
   hero_section {
     background_color
@@ -86,6 +132,13 @@ const hero = gql`
   }
 `;
 
+type Actions = {
+  actions: {
+    description: string;
+    title: string;
+    link: Link;
+  };
+};
 const actions = gql`
   actions {
     actions {
@@ -115,6 +168,34 @@ const queries = Object.entries(mainContentQueries)
   )
   .join("");
 
+type MainContent = Array<
+  | {
+      __typename: "PageMainContentHero";
+      hero_section: Hero;
+    }
+  | {
+      __typename: "PageMainContentBuckets";
+      buckets: Buckets;
+    }
+  | {
+      __typename: "PageMainContentSpotlight";
+      spotlight: Spotlight;
+    }
+  | {
+      __typename: "PageMainContentActions";
+      actions: Actions;
+    }
+>;
+
+export type PageQueryResult = {
+  data: {
+    all_page: {
+      items: Array<{
+        main_content: MainContent;
+      }>;
+    };
+  };
+};
 export const pageQuery = gql`
   query page($url: String!) {
     all_page(where: { url: $url }) {
