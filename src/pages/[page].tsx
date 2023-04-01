@@ -1,24 +1,27 @@
+import { Hero, HeroProps } from "@/components/hero";
 import { getPageBlocks } from "@/contentstack/api-client";
 import { GetServerSideProps } from "next";
-
-function Hero(props: any) {
-  return <pre>{JSON.stringify(props, null, 2)}</pre>;
-}
+import type { HeroQuery } from "@/contentstack/queries";
 
 const mainContentComponents = {
   // PageMainContentRichText: richText,
   // PageMainContentBuckets: buckets,
-  PageMainContentHeroSection: Hero,
+  PageMainContentHeroSection: {
+    Component: Hero,
+    mapper: mapHeroToHeroProps,
+  },
   // PageMainContentActions: actions,
   // PageMainContentSpotlight: spotlight,
 };
 
 export default function Page({ blocks }: any) {
-  return <pre>{JSON.stringify(blocks, null, 2)}</pre>;
-  return blocks.map((block: any) => {
-    const Component = mainContentComponents[block.__typename as string];
+  return blocks.map((block) => {
+    const { Component, mapper } =
+      mainContentComponents[block.__typename as string] ?? {};
     if (Component) {
-      return <Component key={block._typename} {...block.hero_section} />;
+      return (
+        <Component key={block._typename} {...mapper(block.hero_section)} />
+      );
     }
 
     return null;
@@ -34,3 +37,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
+
+function mapHeroToHeroProps(data: HeroQuery): HeroProps {
+  return {
+    title: data.title,
+    description: data.description,
+    backgroundColor: data.background_color,
+    textColor: data.text_color,
+    link: data.link,
+    image: {
+      url: data.hero_image.imageConnection.edges[0].node.url,
+      dimensions: data.hero_image.imageConnection.edges[0].node.dimension,
+      position: data.hero_image.position,
+    },
+  };
+}

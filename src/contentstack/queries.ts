@@ -10,6 +10,10 @@ export type Image = {
       filename: string;
       metadata: null;
       title: string;
+      dimension: {
+        height: number;
+        width: number;
+      };
     };
   }>;
 };
@@ -24,6 +28,10 @@ const image = gql`
         filename
         metadata
         title
+        dimension {
+          height
+          width
+        }
       }
     }
   }
@@ -108,17 +116,18 @@ const buckets = gql`
   }
 `;
 
-type Hero = {
+export interface HeroQuery {
   background_color: string;
   description: string;
   hero_image: {
     imageConnection: Image;
-    position: "left" | "right";
+    position: "Left" | "Right";
   };
   text_color: string;
   title: string;
-};
-const hero = gql`
+  link?: Link;
+}
+const heroQuery = gql`
   hero_section {
     background_color
     description
@@ -152,7 +161,7 @@ const actions = gql`
 const mainContentQueries = {
   PageMainContentRichText: richText,
   PageMainContentBuckets: buckets,
-  PageMainContentHeroSection: hero,
+  PageMainContentHeroSection: heroQuery,
   PageMainContentActions: actions,
   PageMainContentSpotlight: spotlight,
 };
@@ -171,7 +180,7 @@ const queries = Object.entries(mainContentQueries)
 type MainContent = Array<
   | {
       __typename: "PageMainContentHero";
-      hero_section: Hero;
+      hero_section: HeroQuery;
     }
   | {
       __typename: "PageMainContentBuckets";
