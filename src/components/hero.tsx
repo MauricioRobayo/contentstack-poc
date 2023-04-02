@@ -35,7 +35,7 @@ export function Hero({
         }`}
       >
         <div className="flex flex-col justify-center gap-4">
-          <div className="text-2xl font-bold">{title}</div>
+          <div className="text-3xl font-bold">{title}</div>
           <div>{description}</div>
           {link && <ButtonLink href={link.href}>{link.title}</ButtonLink>}
         </div>

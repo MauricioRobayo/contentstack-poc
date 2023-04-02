@@ -87,17 +87,17 @@ const richText = gql`
   }
 `;
 
-type Buckets = {
-  actions: {
-    description: {
-      iconConnection: Image;
-      link: Link;
-      title: string;
-    };
+export interface BucketsQuery {
+  title: string;
+  description: string;
+  actions: Array<{
+    description: string;
     title: string;
-  };
-};
-const buckets = gql`
+    link: Link;
+    iconConnection: Image;
+  }>;
+}
+const bucketsQuery = gql`
   buckets {
     actions {
       description
@@ -105,6 +105,10 @@ const buckets = gql`
         edges {
           node {
             url
+            dimension {
+              height
+              width
+            }
           }
         }
       }
@@ -158,12 +162,34 @@ const actions = gql`
   }
 `;
 
+const blogQuery = gql`
+  blog {
+    title
+    link {
+      href
+      title
+    }
+    referenceConnection {
+      edges {
+        node {
+          ... on BlogArticle {
+            title
+            url
+            summary
+          }
+        }
+      }
+    }
+  }
+`;
+
 const mainContentQueries = {
   PageMainContentRichText: richText,
-  PageMainContentBuckets: buckets,
+  PageMainContentBuckets: bucketsQuery,
   PageMainContentHeroSection: heroQuery,
   PageMainContentActions: actions,
   PageMainContentSpotlight: spotlight,
+  PageMainContentBlog: blogQuery,
 };
 
 const queries = Object.entries(mainContentQueries)
@@ -177,14 +203,14 @@ const queries = Object.entries(mainContentQueries)
   )
   .join("");
 
-type MainContent = Array<
+export type MainContent = Array<
   | {
       __typename: "PageMainContentHero";
       hero_section: HeroQuery;
     }
   | {
       __typename: "PageMainContentBuckets";
-      buckets: Buckets;
+      buckets: BucketsQuery;
     }
   | {
       __typename: "PageMainContentSpotlight";
