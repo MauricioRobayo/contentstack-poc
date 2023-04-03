@@ -162,7 +162,95 @@ const actions = gql`
   }
 `;
 
+export interface BlogQueryResult {
+  data: {
+    all_blog_article: {
+      items: Array<BlogQuery>;
+    };
+  };
+}
 export interface BlogQuery {
+  date: string;
+  title: string;
+  url: string;
+  summary: string;
+  featured_imageConnection: {
+    edges: Array<{
+      node: {
+        url: string;
+        dimension: {
+          width: number;
+          height: number;
+        };
+      };
+    }>;
+  };
+  content: {
+    json: any;
+  };
+  authorConnection: {
+    edges: Array<{
+      node: {
+        title: string;
+        url: string;
+        photoConnection: {
+          edges: Array<{
+            node: {
+              url: string;
+              dimension: {
+                width: number;
+                height: number;
+              };
+            };
+          }>;
+        };
+      };
+    }>;
+  };
+}
+const blogQuery = gql`
+  date
+  title
+  url
+  summary
+  featured_imageConnection {
+    edges {
+      node {
+        dimension {
+          height
+          width
+        }
+        url
+      }
+    }
+  }
+  content {
+    json
+  }
+  authorConnection {
+    edges {
+      node {
+        ... on Author {
+          title
+          url
+          photoConnection {
+            edges {
+              node {
+                url
+                dimension {
+                  height
+                  width
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export interface FeaturedPostsQuery {
   title: string;
   link: Link;
   referenceConnection: {
@@ -186,7 +274,7 @@ export interface BlogQuery {
     }>;
   };
 }
-const blogQuery = gql`
+const featuredPostsQuery = gql`
   blog {
     title
     link {
@@ -197,20 +285,7 @@ const blogQuery = gql`
       edges {
         node {
           ... on BlogArticle {
-            title
-            url
-            summary
-            featured_imageConnection {
-              edges {
-                node {
-                  url
-                  dimension {
-                    width
-                    height
-                  }
-                }
-              }
-            }
+            ${blogQuery}
           }
         }
       }
@@ -224,7 +299,7 @@ const mainContentQueries = {
   PageMainContentHeroSection: heroQuery,
   PageMainContentActions: actions,
   PageMainContentSpotlight: spotlight,
-  PageMainContentBlog: blogQuery,
+  PageMainContentBlog: featuredPostsQuery,
 };
 
 const queries = Object.entries(mainContentQueries)
@@ -275,6 +350,16 @@ export const pageQuery = gql`
         }
         title
         url
+      }
+    }
+  }
+`;
+
+export const postQuery = gql`
+  query post($url: String!) {
+    all_blog_article(where: { url: $url }) {
+      items {
+        ${blogQuery}
       }
     }
   }

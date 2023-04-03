@@ -1,4 +1,11 @@
-import { PageQueryResult, pageQuery } from "./queries";
+import { PostProps } from "@/pages/blog/[post]";
+import {
+  BlogQueryResult,
+  PageQueryResult,
+  pageQuery,
+  postQuery,
+} from "./queries";
+import { jsonToHtml } from "@contentstack/json-rte-serializer";
 
 const config = {
   apiBaseUrl: process.env.CONTENTSTACK_API_BASE_URL ?? "",
@@ -35,7 +42,6 @@ async function contentstackClient(
   );
 
   if (!response.ok) {
-    console.log(JSON.stringify(response, null, 2));
     throw new Error(`GraphQL API Error: ${response.status}`);
   }
 
@@ -47,4 +53,33 @@ export async function getPageBlocks(url: string) {
     url,
   });
   return response.data.all_page.items[0].main_content;
+}
+
+export async function getBlogPost(url: string): Promise<PostProps["post"]> {
+  const response: BlogQueryResult = await contentstackClient(postQuery, {
+    url,
+  });
+
+  const post = response.data.all_blog_article.items[0];
+
+  return {
+    date: post.date,
+    image: {
+      dimensions: post.featured_imageConnection.edges[0].node.dimension,
+      url: post.featured_imageConnection.edges[0].node.url,
+    },
+    title: post.title,
+    content: jsonToHtml(response.data.all_blog_article.items[0].content.json),
+    author: {
+      name: post.authorConnection.edges[0].node.title,
+      url: post.authorConnection.edges[0].node.url,
+      image: {
+        url: post.authorConnection.edges[0].node.photoConnection.edges[0].node
+          .url,
+        dimensions:
+          post.authorConnection.edges[0].node.photoConnection.edges[0].node
+            .dimension,
+      },
+    },
+  };
 }

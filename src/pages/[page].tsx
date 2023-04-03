@@ -2,7 +2,7 @@ import { Hero, HeroProps } from "@/components/hero";
 import { getPageBlocks } from "@/contentstack/api-client";
 import { GetServerSideProps } from "next";
 import type {
-  BlogQuery,
+  FeaturedPostsQuery,
   BucketsQuery,
   HeroQuery,
 } from "@/contentstack/queries";
@@ -101,7 +101,7 @@ function mapBucketsToBucketsProps(data: BucketsQuery): BucketsProps {
   };
 }
 
-function mapBlogToFeaturedPosts(data: BlogQuery): FeaturedPostsProps {
+function mapBlogToFeaturedPosts(data: FeaturedPostsQuery): FeaturedPostsProps {
   return {
     title: data.title,
     link: data.link,
