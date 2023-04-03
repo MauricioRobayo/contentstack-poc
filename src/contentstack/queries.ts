@@ -250,6 +250,122 @@ const blogQuery = gql`
   }
 `;
 
+export interface SettingsQueryResult {
+  data: {
+    settings: {
+      copyright: string;
+      site_title: string;
+      logoConnection: {
+        edges: Array<{
+          node: {
+            url: string;
+            dimension: {
+              width: number;
+              height: number;
+            };
+          };
+        }>;
+      };
+      referenceConnection: {
+        edges: Array<{
+          node: {
+            title: string;
+            menu_items: Array<{
+              label: string;
+              external_link: {
+                href: string;
+                title: string;
+              };
+              internal_linkConnection: {};
+            }>;
+          };
+        }>;
+      };
+      social_links: {
+        social_links: Array<{
+          name: string;
+          iconConnection: {
+            edges: Array<{
+              node: {
+                url: string;
+                dimension: {
+                  width: number;
+                  height: number;
+                };
+              };
+            }>;
+          };
+        }>;
+      };
+    };
+  };
+}
+export const settingsQuery = gql`
+  query MyQuery {
+    settings(uid: "blt2c76fbecb8678aee") {
+      copyright
+      site_title
+      logoConnection {
+        edges {
+          node {
+            url
+            dimension {
+              height
+              width
+            }
+          }
+        }
+      }
+      referenceConnection {
+        edges {
+          node {
+            ... on Menu {
+              title
+              menu_items {
+                label
+                external_link {
+                  href
+                  title
+                }
+                internal_linkConnection {
+                  edges {
+                    node {
+                      ... on BlogArticle {
+                        title
+                        url
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      social_links {
+        social_links {
+          iconConnection {
+            edges {
+              node {
+                url
+                dimension {
+                  height
+                  width
+                }
+              }
+            }
+          }
+          link {
+            href
+            title
+          }
+          name
+        }
+      }
+    }
+  }
+`;
+
 export interface FeaturedPostsQuery {
   title: string;
   link: Link;

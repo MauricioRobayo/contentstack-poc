@@ -2,10 +2,13 @@ import { PostProps } from "@/pages/blog/[post]";
 import {
   BlogQueryResult,
   PageQueryResult,
+  SettingsQueryResult,
   pageQuery,
   postQuery,
+  settingsQuery,
 } from "./queries";
 import { jsonToHtml } from "@contentstack/json-rte-serializer";
+import { PocSettings } from "@/pages/_app";
 
 const config = {
   apiBaseUrl: process.env.CONTENTSTACK_API_BASE_URL ?? "",
@@ -16,7 +19,7 @@ const config = {
 
 const missingEnvVars = Object.entries(config).filter(([, value]) => !value);
 
-if (missingEnvVars.length > 0) {
+if (typeof window === "undefined" && missingEnvVars.length > 0) {
   throw new Error(
     `Missing env vars: ${missingEnvVars.map(([key]) => key).join()}`
   );
@@ -81,5 +84,33 @@ export async function getBlogPost(url: string): Promise<PostProps["post"]> {
             .dimension,
       },
     },
+  };
+}
+
+export async function getSettings(): Promise<PocSettings> {
+  const response: SettingsQueryResult = await contentstackClient(settingsQuery);
+  const data = response.data.settings;
+
+  return {
+    copyright: data.copyright,
+    siteTitle: data.site_title,
+    logo: {
+      url: data.logoConnection.edges[0].node.url,
+      dimensions: data.logoConnection.edges[0].node.dimension,
+    },
+    socialLinks: data.social_links.social_links.map((socialLink) => ({
+      logo: {
+        url: socialLink.iconConnection.edges[0].node.url,
+        dimensions: socialLink.iconConnection.edges[0].node.dimension,
+      },
+      name: socialLink.name,
+    })),
+    menu: data.referenceConnection.edges[0].node.menu_items.map((menuItem) => ({
+      label: menuItem.label,
+      link: {
+        href: menuItem.external_link.href,
+        title: menuItem.external_link.title,
+      },
+    })),
   };
 }
