@@ -37,7 +37,7 @@ export function Hero({
         <div className="flex flex-col justify-center gap-4 max-w-xl">
           <div className="text-3xl font-bold">{title}</div>
           <div>{description}</div>
-          {link && <ButtonLink href={link.href}>{link.title}</ButtonLink>}
+          {link?.href && <ButtonLink href={link.href}>{link.title}</ButtonLink>}
         </div>
         <Image src={image.url} alt="" {...image.dimensions}></Image>
       </div>
