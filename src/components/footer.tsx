@@ -11,7 +11,7 @@ export function Footer({
   socialLinks,
 }: PocSettings) {
   return (
-    <div className="flex max-w-screen-lg p-16 justify-between">
+    <div className="flex max-w-screen-lg p-16 justify-between m-auto">
       <Image src={logo.url} alt={siteTitle} {...logo.dimensions} />
       <div className="flex flex-col items-center gap-2 text-sm">
         <Menu menu={menu} />

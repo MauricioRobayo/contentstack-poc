@@ -31,7 +31,7 @@ export interface PostProps {
 export default function Post({ post }: PostProps) {
   const { date, title, content, image, author } = post;
   return (
-    <div className="p-16 m-auto prose-xl prose">
+    <div className="p-16 m-auto max-w-screen-lg">
       <div className="text-4xl font-bold">{title}</div>
       <div className="text-sm">
         <div>{date}</div>
@@ -53,12 +53,15 @@ export default function Post({ post }: PostProps) {
         </div>
       </div>
       <Image
-        className="mt-8 w-full"
+        className="my-8 w-full"
         src={image.url}
         alt={title}
         {...image.dimensions}
       />
-      <article dangerouslySetInnerHTML={{ __html: content }}></article>
+      <article
+        className="prose-xl prose"
+        dangerouslySetInnerHTML={{ __html: content }}
+      ></article>
     </div>
   );
 }
