@@ -45,7 +45,6 @@ export default function Page({
   return page.content.map(({ type, content }) => {
     const { Component, mapper } = mainContentComponents[type] ?? {};
     const props = mapper ? mapper(content) : content;
-    console.log(page.metadata);
     if (Component) {
       return (
         <>
