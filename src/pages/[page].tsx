@@ -1,9 +1,14 @@
 import { Hero, HeroProps } from "@/components/hero";
 import { getPageBlocks } from "@/contentstack/api-client";
 import { GetServerSideProps } from "next";
-import type { BucketsQuery, HeroQuery } from "@/contentstack/queries";
+import type {
+  BlogQuery,
+  BucketsQuery,
+  HeroQuery,
+} from "@/contentstack/queries";
 import { Buckets, BucketsProps } from "@/components/buckets";
 import { Actions } from "@/components/actions";
+import { FeaturedPosts, FeaturedPostsProps } from "@/components/featured-posts";
 
 const mainContentComponents: { [key: string]: any } = {
   // PageMainContentRichText: richText,
@@ -17,6 +22,10 @@ const mainContentComponents: { [key: string]: any } = {
   },
   PageMainContentActions: {
     Component: Actions,
+  },
+  PageMainContentBlog: {
+    Component: FeaturedPosts,
+    mapper: mapBlogToFeaturedPosts,
   },
   // PageMainContentSpotlight: spotlight,
 };
@@ -42,13 +51,11 @@ export default function Page({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const blocks = await getPageBlocks(`/${context.query.page ?? ""}`);
-  console.log(blocks);
   return {
     props: {
       blocks: blocks.map((block) => {
         return Object.fromEntries(
           Object.entries(block).map(([key, value]) => {
-            console.log(value);
             if (key === "__typename") {
               return ["type", value];
             } else {
@@ -81,7 +88,6 @@ function mapBucketsToBucketsProps(data: BucketsQuery): BucketsProps {
     title: data.title,
     description: data.description,
     buckets: data.actions.map((action) => {
-      console.log(action);
       return {
         title: action.title,
         description: action.description,
@@ -92,5 +98,21 @@ function mapBucketsToBucketsProps(data: BucketsQuery): BucketsProps {
         },
       };
     }),
+  };
+}
+
+function mapBlogToFeaturedPosts(data: BlogQuery): FeaturedPostsProps {
+  return {
+    title: data.title,
+    link: data.link,
+    posts: data.referenceConnection.edges.map((post) => ({
+      summary: post.node.summary,
+      title: post.node.title,
+      url: post.node.url,
+      image: {
+        url: post.node.featured_imageConnection.edges[0].node.url,
+        dimensions: post.node.featured_imageConnection.edges[0].node.dimension,
+      },
+    })),
   };
 }

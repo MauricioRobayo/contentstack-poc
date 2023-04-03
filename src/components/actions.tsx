@@ -12,7 +12,7 @@ export interface ActionsProps {
 }
 export function Actions({ actions }: ActionsProps) {
   return (
-    <div className="bg-gray-100 border-black border-t-2 p-16">
+    <div className="bg-gray-100 p-16">
       <div className="flex justify-center gap-8 m-auto">
         {actions.map(({ title, description, link }) => {
           return (

@@ -35,6 +35,7 @@ async function contentstackClient(
   );
 
   if (!response.ok) {
+    console.log(JSON.stringify(response, null, 2));
     throw new Error(`GraphQL API Error: ${response.status}`);
   }
 

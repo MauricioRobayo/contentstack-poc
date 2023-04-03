@@ -145,13 +145,13 @@ const heroQuery = gql`
   }
 `;
 
-type Actions = {
+interface Actions {
   actions: {
     description: string;
     title: string;
     link: Link;
   };
-};
+}
 const actions = gql`
   actions {
     actions {
@@ -162,6 +162,30 @@ const actions = gql`
   }
 `;
 
+export interface BlogQuery {
+  title: string;
+  link: Link;
+  referenceConnection: {
+    edges: Array<{
+      node: {
+        title: string;
+        url: string;
+        summary: string;
+        featured_imageConnection: {
+          edges: Array<{
+            node: {
+              url: string;
+              dimension: {
+                width: number;
+                height: number;
+              };
+            };
+          }>;
+        };
+      };
+    }>;
+  };
+}
 const blogQuery = gql`
   blog {
     title
@@ -169,13 +193,24 @@ const blogQuery = gql`
       href
       title
     }
-    referenceConnection {
+    referenceConnection(limit: 2) {
       edges {
         node {
           ... on BlogArticle {
             title
             url
             summary
+            featured_imageConnection {
+              edges {
+                node {
+                  url
+                  dimension {
+                    width
+                    height
+                  }
+                }
+              }
+            }
           }
         }
       }
