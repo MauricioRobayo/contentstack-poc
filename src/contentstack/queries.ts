@@ -48,16 +48,16 @@ const link = gql`
   }
 `;
 
-type Spotlight = {
+export interface SpotlightQuery {
   description: string;
   title: string;
-  caption: {
+  caption: Array<{
     description: string;
     title: string;
     imageConnection: Image;
-  };
-};
-const spotlight = gql`
+  }>;
+}
+const spotlightQuery = gql`
   spotlight {
     description
     title
@@ -434,7 +434,7 @@ const mainContentQueries = {
   PageMainContentBuckets: bucketsQuery,
   PageMainContentHeroSection: heroQuery,
   PageMainContentActions: actions,
-  PageMainContentSpotlight: spotlight,
+  PageMainContentSpotlight: spotlightQuery,
   PageMainContentBlog: featuredPostsQuery,
 };
 
@@ -460,7 +460,7 @@ export type MainContent = Array<
     }
   | {
       __typename: "PageMainContentSpotlight";
-      spotlight: Spotlight;
+      spotlight: SpotlightQuery;
     }
   | {
       __typename: "PageMainContentActions";

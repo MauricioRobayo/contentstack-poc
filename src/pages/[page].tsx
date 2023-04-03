@@ -5,11 +5,13 @@ import type {
   FeaturedPostsQuery,
   BucketsQuery,
   HeroQuery,
+  SpotlightQuery,
 } from "@/contentstack/queries";
 import { Buckets, BucketsProps } from "@/components/buckets";
 import { Actions } from "@/components/actions";
 import { FeaturedPosts, FeaturedPostsProps } from "@/components/featured-posts";
 import Head from "next/head";
+import { Spotlight, SpotlightProps } from "@/components/spotlight";
 
 const mainContentComponents: { [key: string]: any } = {
   // PageMainContentRichText: richText,
@@ -28,7 +30,10 @@ const mainContentComponents: { [key: string]: any } = {
     Component: FeaturedPosts,
     mapper: mapBlogToFeaturedPosts,
   },
-  // TODO: PageMainContentSpotlight: spotlight,
+  PageMainContentSpotlight: {
+    Component: Spotlight,
+    mapper: mapSpotlightToSpotlightProps,
+  },
 };
 
 export default function Page({
@@ -127,6 +132,21 @@ function mapBlogToFeaturedPosts(data: FeaturedPostsQuery): FeaturedPostsProps {
       image: {
         url: post.node.featured_imageConnection.edges[0].node.url,
         dimensions: post.node.featured_imageConnection.edges[0].node.dimension,
+      },
+    })),
+  };
+}
+
+function mapSpotlightToSpotlightProps(data: SpotlightQuery): SpotlightProps {
+  return {
+    description: data.description,
+    title: data.title,
+    highlights: data.caption.map((highlight) => ({
+      description: highlight.description,
+      title: highlight.title,
+      image: {
+        url: highlight.imageConnection.edges[0].node.url,
+        dimensions: highlight.imageConnection.edges[0].node.dimension,
       },
     })),
   };

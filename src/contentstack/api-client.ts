@@ -55,6 +55,7 @@ export async function getPage(url: string) {
   const response: PageQueryResult = await contentstackClient(pageQuery, {
     url,
   });
+  console.log(response.data.all_page.items[0].main_content);
   return {
     content: response.data.all_page.items[0].main_content,
     metadata: response.data.all_page.items[0].global_field,
