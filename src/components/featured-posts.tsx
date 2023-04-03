@@ -30,7 +30,7 @@ export function FeaturedPosts({ title, link, posts }: FeaturedPostsProps) {
           <ButtonLink href={link.href}>{link.title}</ButtonLink>
         </div>
         <div>
-          <div className="grid grid-cols-2 gap-8 max-w-screen-lg˝">
+          <div className="grid grid-cols-2 gap-8 max-w-screen-lg">
             {posts.map(({ title, url, summary, image }) => {
               return (
                 <div key={title} className="border-gray-100 border-2">
