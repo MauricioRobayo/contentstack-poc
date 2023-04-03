@@ -27,7 +27,7 @@ const mainContentComponents: { [key: string]: any } = {
     Component: FeaturedPosts,
     mapper: mapBlogToFeaturedPosts,
   },
-  // PageMainContentSpotlight: spotlight,
+  // TODO: PageMainContentSpotlight: spotlight,
 };
 
 export default function Page({
