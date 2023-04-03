@@ -30,18 +30,18 @@ export function FeaturedPosts({ title, link, posts }: FeaturedPostsProps) {
           <ButtonLink href={link.href}>{link.title}</ButtonLink>
         </div>
         <div>
-          <div className="flex gap-8">
+          <div className="grid grid-cols-2 gap-8 max-w-screen-lg˝">
             {posts.map(({ title, url, summary, image }) => {
               return (
                 <div key={title} className="border-gray-100 border-2">
                   <Image src={image.url} alt="" {...image.dimensions} />
                   <div className="p-4">
-                    <div>{title}</div>
-                    {summary && <div>{summary}</div>}
+                    <div className="font-bold mb-2">{title}</div>
+                    {summary && <div className="text-sm">{summary}</div>}
                     <Link
                       href={url}
                       style={{ color: "#715cdd" }}
-                      className="mt-4 block"
+                      className="mt-4 block text-sm"
                     >
                       Read More &rarr;
                     </Link>
