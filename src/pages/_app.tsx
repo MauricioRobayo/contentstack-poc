@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { getSettings } from "@/contentstack/api-client";
 import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 export interface PocSettings {
   copyright: string;
@@ -30,6 +31,10 @@ export interface PocSettings {
         height: number;
       };
     };
+    link: {
+      href: string;
+      title: string;
+    };
   }>;
 }
 
@@ -46,6 +51,7 @@ export default function PocApp({ Component, pageProps, settings }: TProps) {
         menu={settings.menu}
       />
       <Component {...pageProps} />
+      <Footer {...settings} />
     </div>
   );
 }

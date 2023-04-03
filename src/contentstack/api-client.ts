@@ -104,12 +104,17 @@ export async function getSettings(): Promise<PocSettings> {
         dimensions: socialLink.iconConnection.edges[0].node.dimension,
       },
       name: socialLink.name,
+      link: socialLink.link,
     })),
     menu: data.referenceConnection.edges[0].node.menu_items.map((menuItem) => ({
       label: menuItem.label,
       link: {
-        href: menuItem.external_link.href,
-        title: menuItem.external_link.title,
+        href:
+          menuItem.internal_linkConnection.edges[0]?.node.url ||
+          menuItem.external_link.href,
+        title:
+          menuItem.internal_linkConnection.edges[0]?.node.title ||
+          menuItem.external_link.title,
       },
     })),
   };

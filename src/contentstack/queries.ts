@@ -276,7 +276,14 @@ export interface SettingsQueryResult {
                 href: string;
                 title: string;
               };
-              internal_linkConnection: {};
+              internal_linkConnection: {
+                edges: Array<{
+                  node: {
+                    title: string;
+                    url: string;
+                  };
+                }>;
+              };
             }>;
           };
         }>;
@@ -284,6 +291,10 @@ export interface SettingsQueryResult {
       social_links: {
         social_links: Array<{
           name: string;
+          link: {
+            href: string;
+            title: string;
+          };
           iconConnection: {
             edges: Array<{
               node: {
@@ -330,7 +341,7 @@ export const settingsQuery = gql`
                 internal_linkConnection {
                   edges {
                     node {
-                      ... on BlogArticle {
+                      ... on Page {
                         title
                         url
                       }

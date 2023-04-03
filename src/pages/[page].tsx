@@ -42,7 +42,7 @@ export default function Page({
     const { Component, mapper } = mainContentComponents[type] ?? {};
     const props = mapper ? mapper(content) : content;
     if (Component) {
-      return <Component key={type} {...props} />;
+      return <Component key={`${type}-${content.title}`} {...props} />;
     }
 
     return null;
