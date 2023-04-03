@@ -1,5 +1,5 @@
 import { Hero, HeroProps } from "@/components/hero";
-import { getPageBlocks } from "@/contentstack/api-client";
+import { getPage } from "@/contentstack/api-client";
 import { GetServerSideProps } from "next";
 import type {
   FeaturedPostsQuery,
@@ -9,6 +9,7 @@ import type {
 import { Buckets, BucketsProps } from "@/components/buckets";
 import { Actions } from "@/components/actions";
 import { FeaturedPosts, FeaturedPostsProps } from "@/components/featured-posts";
+import Head from "next/head";
 
 const mainContentComponents: { [key: string]: any } = {
   // PageMainContentRichText: richText,
@@ -31,18 +32,30 @@ const mainContentComponents: { [key: string]: any } = {
 };
 
 export default function Page({
-  blocks,
+  page,
 }: {
-  blocks: Array<{
-    type: string;
-    content: any;
-  }>;
+  page: {
+    metadata: { title: string; description: string };
+    content: Array<{
+      type: string;
+      content: any;
+    }>;
+  };
 }) {
-  return blocks.map(({ type, content }) => {
+  return page.content.map(({ type, content }) => {
     const { Component, mapper } = mainContentComponents[type] ?? {};
     const props = mapper ? mapper(content) : content;
+    console.log(page.metadata);
     if (Component) {
-      return <Component key={`${type}-${content.title}`} {...props} />;
+      return (
+        <>
+          <Head>
+            <title>{page.metadata.title}</title>
+            <meta name="description" content={page.metadata.description} />
+          </Head>
+          <Component key={`${type}-${content.title}`} {...props} />
+        </>
+      );
     }
 
     return null;
@@ -50,20 +63,23 @@ export default function Page({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const blocks = await getPageBlocks(`/${context.query.page ?? ""}`);
+  const { metadata, content } = await getPage(`/${context.query.page ?? ""}`);
   return {
     props: {
-      blocks: blocks.map((block) => {
-        return Object.fromEntries(
-          Object.entries(block).map(([key, value]) => {
-            if (key === "__typename") {
-              return ["type", value];
-            } else {
-              return ["content", value];
-            }
-          })
-        );
-      }),
+      page: {
+        metadata,
+        content: content.map((block) => {
+          return Object.fromEntries(
+            Object.entries(block).map(([key, value]) => {
+              if (key === "__typename") {
+                return ["type", value];
+              } else {
+                return ["content", value];
+              }
+            })
+          );
+        }),
+      },
     },
   };
 };

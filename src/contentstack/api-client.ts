@@ -51,11 +51,14 @@ async function contentstackClient(
   return response.json();
 }
 
-export async function getPageBlocks(url: string) {
+export async function getPage(url: string) {
   const response: PageQueryResult = await contentstackClient(pageQuery, {
     url,
   });
-  return response.data.all_page.items[0].main_content;
+  return {
+    content: response.data.all_page.items[0].main_content,
+    metadata: response.data.all_page.items[0].global_field,
+  };
 }
 
 export async function getBlogPost(url: string): Promise<PostProps["post"]> {

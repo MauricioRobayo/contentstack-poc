@@ -464,6 +464,10 @@ export type PageQueryResult = {
     all_page: {
       items: Array<{
         main_content: MainContent;
+        global_field: {
+          description: string;
+          title: string;
+        };
       }>;
     };
   };
@@ -477,6 +481,11 @@ export const pageQuery = gql`
         }
         title
         url
+        global_field {
+          description
+          title
+          keywords
+        }
       }
     }
   }
