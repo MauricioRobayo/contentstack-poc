@@ -69,6 +69,7 @@ export async function getBlogPost(url: string): Promise<PostProps["post"]> {
   const post = response.data.all_blog_article.items[0];
 
   return {
+    metadata: post.global_field,
     date: post.date,
     image: {
       dimensions: post.featured_imageConnection.edges[0].node.dimension,

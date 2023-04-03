@@ -174,6 +174,10 @@ export interface BlogQuery {
   title: string;
   url: string;
   summary: string;
+  global_field: {
+    title: string;
+    description: string;
+  };
   featured_imageConnection: {
     edges: Array<{
       node: {
@@ -247,6 +251,11 @@ const blogQuery = gql`
         }
       }
     }
+  }
+  global_field {
+    description
+    title
+    keywords
   }
 `;
 
