@@ -44,11 +44,14 @@ async function contentstackClient(
     }
   );
 
+  const data = await response.json();
+
   if (!response.ok) {
+    console.log(JSON.stringify(data, null, 2))
     throw new Error(`GraphQL API Error: ${response.status}`);
   }
 
-  return response.json();
+  return data
 }
 
 export async function getPage(url: string) {
