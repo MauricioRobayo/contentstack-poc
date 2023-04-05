@@ -275,7 +275,7 @@ export interface SettingsQueryResult {
           };
         }>;
       };
-      referenceConnection: {
+      menuConnection: {
         edges: Array<{
           node: {
             title: string;
@@ -321,8 +321,8 @@ export interface SettingsQueryResult {
   };
 }
 export const settingsQuery = gql`
-  query MyQuery {
-    settings(uid: "blt2c76fbecb8678aee") {
+  query SettingsQuery {
+    settings(uid: "blt57e0dcd59e4ebe6e") {
       copyright
       site_title
       logoConnection {
@@ -336,7 +336,7 @@ export const settingsQuery = gql`
           }
         }
       }
-      referenceConnection {
+      menuConnection {
         edges {
           node {
             ... on Menu {

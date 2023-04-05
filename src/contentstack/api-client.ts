@@ -12,7 +12,7 @@ import { PocSettings } from "@/pages/_app";
 
 const config = {
   apiBaseUrl: process.env.CONTENTSTACK_API_BASE_URL ?? "",
-  accessToken: process.env.CONTENTSTACK_ACCESS_TOKEN ?? "",
+  deliveryToken: process.env.CONTENTSTACK_DELIVERY_TOKEN ?? "",
   apiKey: process.env.CONTENTSTACK_API_KEY ?? "",
   environment: process.env.CONTENTSTACK_ENVIRONMENT ?? "",
 };
@@ -35,7 +35,7 @@ async function contentstackClient(
       method: "POST",
       headers: {
         "content-type": "application/json",
-        access_token: config.accessToken,
+        access_token: config.deliveryToken,
       },
       body: JSON.stringify({
         query,
@@ -47,11 +47,11 @@ async function contentstackClient(
   const data = await response.json();
 
   if (!response.ok) {
-    console.log(JSON.stringify(data, null, 2))
+    console.log(JSON.stringify({ data, query }, null, 2));
     throw new Error(`GraphQL API Error: ${response.status}`);
   }
 
-  return data
+  return data;
 }
 
 export async function getPage(url: string) {
@@ -113,7 +113,7 @@ export async function getSettings(): Promise<PocSettings> {
       name: socialLink.name,
       link: socialLink.link,
     })),
-    menu: data.referenceConnection.edges[0].node.menu_items.map((menuItem) => ({
+    menu: data.menuConnection.edges[0].node.menu_items.map((menuItem) => ({
       label: menuItem.label,
       link: {
         href:
