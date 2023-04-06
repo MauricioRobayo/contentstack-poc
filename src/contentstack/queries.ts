@@ -477,6 +477,11 @@ export type PageQueryResult = {
           description: string;
           title: string;
         };
+        system: {
+          content_type_uid: string;
+          locale: string;
+          uid: string;
+        };
       }>;
     };
   };
@@ -485,15 +490,20 @@ export const pageQuery = gql`
   query page($url: String!) {
     all_page(where: { url: $url }) {
       items {
+        title
+        url
         main_content {
           ${queries}
         }
-        title
-        url
         global_field {
           description
           title
           keywords
+        }
+        system {
+          content_type_uid
+          locale
+          uid
         }
       }
     }

@@ -40,6 +40,11 @@ export default function Page({
   page,
 }: {
   page: {
+    system: {
+      contentType: string;
+      locale: string;
+      pageRef: string;
+    };
     metadata: { title: string; description: string };
     content: Array<{
       type: string;
@@ -67,10 +72,17 @@ export default function Page({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { metadata, content } = await getPage(`/${context.query.page ?? ""}`);
+  const { system, metadata, content } = await getPage(
+    `/${context.query.page ?? ""}`
+  );
   return {
     props: {
       page: {
+        system: {
+          contentType: system.content_type_uid,
+          locale: system.locale,
+          pageRef: system.uid,
+        },
         metadata,
         content: content.map((block) => {
           return Object.fromEntries(

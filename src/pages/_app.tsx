@@ -43,8 +43,14 @@ type TProps = Pick<AppProps, "Component" | "pageProps"> & {
 };
 
 export default function PocApp({ Component, pageProps, settings }: TProps) {
+  const { system } = pageProps.page;
   return (
-    <div className="text-slate-600">
+    <div
+      className="text-slate-600"
+      data-contenttype={system.contentType}
+      data-locale={system.locale}
+      data-pageref={system.pageRef}
+    >
       <Header
         logo={settings.logo}
         siteTitle={settings.siteTitle}

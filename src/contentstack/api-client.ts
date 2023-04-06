@@ -59,6 +59,7 @@ export async function getPage(url: string) {
     url,
   });
   return {
+    system: response.data.all_page.items[0].system,
     content: response.data.all_page.items[0].main_content,
     metadata: response.data.all_page.items[0].global_field,
   };
