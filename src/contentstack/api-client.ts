@@ -73,6 +73,11 @@ export async function getBlogPost(url: string): Promise<PostProps["post"]> {
   const post = response.data.all_blog_article.items[0];
 
   return {
+    system: {
+      pageRef: post.system.uid,
+      contentType: post.system.content_type_uid,
+      locale: post.system.locale,
+    },
     metadata: post.global_field,
     date: post.date,
     image: {

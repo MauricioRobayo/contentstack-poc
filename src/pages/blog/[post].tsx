@@ -5,7 +5,12 @@ import Link from "next/link";
 import { GetServerSideProps } from "next/types";
 
 export interface PostProps {
-  post: {
+  page: {
+    system: {
+      pageRef: string;
+      contentType: string;
+      locale: string;
+    };
     metadata: {
       title: string;
       description: string;
@@ -33,8 +38,8 @@ export interface PostProps {
     };
   };
 }
-export default function Post({ post }: PostProps) {
-  const { date, title, content, image, author, metadata } = post;
+export default function Post({ page }: PostProps) {
+  const { date, title, content, image, author, metadata } = page;
   return (
     <>
       <Head>
@@ -78,10 +83,10 @@ export default function Post({ post }: PostProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const post = await getBlogPost(`/blog/${context.query.post}`);
+  const page = await getBlogPost(`/blog/${context.query.post}`);
   return {
     props: {
-      post,
+      page,
     },
   };
 };

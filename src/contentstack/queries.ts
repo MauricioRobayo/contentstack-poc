@@ -211,6 +211,11 @@ export interface BlogQuery {
       };
     }>;
   };
+  system: {
+    content_type_uid: string;
+    locale: string;
+    uid: string;
+  };
 }
 const blogQuery = gql`
   date
@@ -256,6 +261,11 @@ const blogQuery = gql`
     description
     title
     keywords
+  }
+  system {
+    content_type_uid
+    locale
+    uid
   }
 `;
 

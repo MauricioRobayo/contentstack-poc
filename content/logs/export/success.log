@@ -1,0 +1,101 @@
+{"level":"info","message":"Starting assets export"}
+{"level":"info","message":"Downloaded pierre-cox.svg: blt00c3a0b5cc3f46c2 successfully!"}
+{"level":"info","message":"Downloaded thomas-crane.svg: blt148cefc8228a29ea successfully!"}
+{"level":"info","message":"Downloaded avataaars_(1).png: bltd4d811733713862d successfully!"}
+{"level":"info","message":"Downloaded cloud-computing.svg: blt6e238dd7b623eea7 successfully!"}
+{"level":"info","message":"Downloaded artificial-intelligence.svg: bltef4a7516a5679183 successfully!"}
+{"level":"info","message":"Downloaded help-for-the-next-step.svg: blt29a761835b021276 successfully!"}
+{"level":"info","message":"Downloaded company-logo.svg: blt717036a788cbcfa6 successfully!"}
+{"level":"info","message":"Downloaded security.svg: blt2fab81b56f342eb7 successfully!"}
+{"level":"info","message":"Downloaded business-with-al.svg: bltfc50181abea6237e successfully!"}
+{"level":"info","message":"Downloaded facebook.svg: bltc604bfa1460608da successfully!"}
+{"level":"info","message":"Downloaded webimage-13D955B0-7A80-4D67-B663E075455448A5.png: bltaee10b87777e2893 successfully!"}
+{"level":"info","message":"Downloaded modern-cloud-ecosystem.svg: blt338f3b9c5e7cfcaa successfully!"}
+{"level":"info","message":"Downloaded Twitter.svg: bltafd67d2068ab61d0 successfully!"}
+{"level":"info","message":"Downloaded Instagram.svg: blt3ef6df81fd722bf2 successfully!"}
+{"level":"info","message":"Downloaded about-us.svg: bltba9b8b96ebe257f2 successfully!"}
+{"level":"info","message":"Downloaded Icon_Artwork_1.svg: blte421205b6f029d71 successfully!"}
+{"level":"info","message":"Downloaded Icon_Artwork_2.svg: blt6554192754eff95e successfully!"}
+{"level":"info","message":"Downloaded our-story.svg: bltebf71338b05fcb5a successfully!"}
+{"level":"info","message":"Downloaded cierra-vega.svg: blt475add2c7768fdd0 successfully!"}
+{"level":"info","message":"Downloaded alden-cantrell.svg: blt058b43c3bd7dc1f0 successfully!"}
+{"level":"info","message":"Batch no 1 of assets is complete"}
+{"level":"info","message":"Downloaded 3336_3280480283_d33fbe5943_b_640_360_nofilter.jpg: blte3cef0b67ce614e0 successfully!"}
+{"level":"info","message":"Downloaded winning-digital-strategy.png: blt89da53f301f58f8d successfully!"}
+{"level":"info","message":"Batch no 21 of assets is complete"}
+{"level":"info","message":"No folders were found in the stack!"}
+{"level":"info","message":"Asset export completed successfully"}
+{"level":"info","message":"Starting locale export"}
+{"level":"info","message":"Completed locale export"}
+{"level":"info","message":"Starting environment export"}
+{"level":"info","message":"All the environments have been exported successfully"}
+{"level":"info","message":"Starting extension export"}
+{"level":"info","message":"All the extensions have been exported successfully"}
+{"level":"info","message":"Starting webhooks export"}
+{"level":"info","message":"No webhooks found"}
+{"level":"info","message":"Starting Global Fields export"}
+{"level":"info","message":"Global Fields export completed successfully"}
+{"level":"info","message":"Starting content type export"}
+{"level":"info","message":"Content type(s) exported successfully"}
+{"level":"info","message":"Starting roles export"}
+{"level":"info","message":"Blog Author role was exported successfully"}
+{"level":"info","message":"Homepage editor role was exported successfully"}
+{"level":"info","message":"All the custom roles have been exported successfully"}
+{"level":"info","message":"Starting workflow export"}
+{"level":"info","message":"No workflow were found in the Stack"}
+{"level":"info","message":"Starting entries export"}
+{"level":"info","message":"Starting export of entries of content_type - faq locale - fr-fr"}
+{"level":"info","message":"Exported entries of type faq locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - faq locale - en-us"}
+{"level":"info","message":"Exported entries of type faq locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - author locale - fr-fr"}
+{"level":"info","message":"Exported entries of type author locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - author locale - en-us"}
+{"level":"info","message":"Exported entries of type author locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - category locale - fr-fr"}
+{"level":"info","message":"Exported entries of type category locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - category locale - en-us"}
+{"level":"info","message":"Exported entries of type category locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - news locale - fr-fr"}
+{"level":"info","message":"Exported entries of type news locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - news locale - en-us"}
+{"level":"info","message":"Exported entries of type news locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - blog_article locale - fr-fr"}
+{"level":"info","message":"Exported entries of type blog_article locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - blog_article locale - en-us"}
+{"level":"info","message":"Exported entries of type blog_article locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - footer locale - fr-fr"}
+{"level":"info","message":"Exported entries of type footer locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - footer locale - en-us"}
+{"level":"info","message":"Exported entries of type footer locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - menu locale - fr-fr"}
+{"level":"info","message":"Exported entries of type menu locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - menu locale - en-us"}
+{"level":"info","message":"Exported entries of type menu locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - settings locale - fr-fr"}
+{"level":"info","message":"Exported entries of type settings locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - settings locale - en-us"}
+{"level":"info","message":"Exported entries of type settings locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - blt7cd35243deeac36b locale - fr-fr"}
+{"level":"info","message":"Exported entries of type blt7cd35243deeac36b locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - blt7cd35243deeac36b locale - en-us"}
+{"level":"info","message":"Exported entries of type blt7cd35243deeac36b locale en-us"}
+{"level":"info","message":"Starting export of entries of content_type - page locale - fr-fr"}
+{"level":"info","message":"Exported entries of type page locale fr-fr"}
+{"level":"info","message":"Starting export of entries of content_type - page locale - en-us"}
+{"level":"info","message":"Exported entries of type page locale en-us"}
+{"level":"info","message":"Entries exported successfully"}
+{"level":"info","message":"Starting labels export"}
+{"level":"info","message":"Pages labels was exported successfully"}
+{"level":"info","message":"Blog labels was exported successfully"}
+{"level":"info","message":"All the labels have been exported successfully"}
+{"level":"info","message":"Starting marketplace app export"}
+{"level":"info","message":"Exporting Uniform app and it's config."}
+{"level":"info","message":"Exported Uniform app"}
+{"level":"info","message":"Exporting YouTube app and it's config."}
+{"level":"info","message":"Exported YouTube app"}
+{"level":"info","message":"Exporting Developer Tools app and it's config."}
+{"level":"info","message":"Exported Developer Tools app"}
+{"level":"info","message":"All the marketplace apps have been exported successfully"}
+{"level":"info","message":"The content of stack Sandbox Mauricio has been exported successfully!"}
+{"level":"info","message":"The log for this is stored at logs/export"}
